@@ -8,7 +8,6 @@ export const API = axios.create({
   }
 });
 
-// Optional: response interceptor to surface backend errors consistently
 API.interceptors.response.use(
   (res) => res,
   (err) => {
