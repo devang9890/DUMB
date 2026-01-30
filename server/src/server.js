@@ -6,25 +6,35 @@ import translateRoutes from "./routes/translateRoutes.js";
 
 dotenv.config();
 
-
 const app = express();
 
-// Configure CORS so that when `withCredentials: true` is used by the frontend
-// the server responds with a specific Access-Control-Allow-Origin (not '*').
-const allowedOrigins = [process.env.CLIENT_URL || 'http://localhost:5173', 'http://localhost:3000'];
+const rawAllowed =
+  process.env.ALLOWED_ORIGINS ||
+  process.env.CLIENT_URL ||
+  "http://localhost:5173,http://localhost:3000,https://dumbass-umber.vercel.app/";
+
+const allowedOrigins = rawAllowed
+  .split(",")
+  .map(s => s.trim())
+  .filter(Boolean);
+
+console.log("Allowed CORS origins:", allowedOrigins);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow tools like Postman or server-to-server
+      if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error('Not allowed by CORS'));
+      return callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
+
+// 🔥 REQUIRED for Render (THIS fixes your error)
+app.options("*", cors());
 
 app.use(express.json());
 
@@ -37,4 +47,6 @@ app.get("/", (req, res) => {
 app.use("/api/translate", translateRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT} ✅`));
+app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT} ✅`)
+);
