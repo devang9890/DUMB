@@ -15,7 +15,7 @@ const rawAllowed =
 
 const allowedOrigins = rawAllowed
   .split(",")
-  .map(s => s.trim())
+  .map(s => s.trim().replace(/\/$/, ""))
   .filter(Boolean);
 
 console.log("Allowed CORS origins:", allowedOrigins);
@@ -33,8 +33,9 @@ app.use(
   })
 );
 
-// 🔥 REQUIRED for Render (THIS fixes your error)
-app.options("*", cors());
+// Allow OPTIONS preflight for all routes. Use `/*` to avoid a path-to-regexp
+// parsing issue when using a single `*` which can be interpreted as a parameter.
+app.options("/*", cors());
 
 app.use(express.json());
 
