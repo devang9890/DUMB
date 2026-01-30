@@ -35,7 +35,7 @@ app.use(
 
 // Allow OPTIONS preflight for all routes. Use `/*` to avoid a path-to-regexp
 // parsing issue when using a single `*` which can be interpreted as a parameter.
-app.options("/*", cors());
+app.options(/.*/, cors());
 
 app.use(express.json());
 
