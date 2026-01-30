@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: ai-translator-backend
+    env: node
+    region: oregon
+    plan: free
+    branch: main
+    # If you want Render to use the GitHub repo automatically, leave `repo` out
+    # or set it here to the repository URL. Render will associate the service
+    # with the repo when you create the service in the dashboard.
+    # repo: https://github.com/<OWNER>/<REPO>
+    root: server
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: MONGO_URI
+        # value should be set in Render dashboard as a secret
+      - key: CLIENT_URL
+      - key: OPENAI_API_KEY
+      - key: NODE_ENV
+        value: production
