@@ -23,10 +23,10 @@ Perfect for making your dumb thoughts sound smart, or your smart thoughts sound 
 <div align="center">
 
 ### Welcome Screen
-![Welcome Screen](./screenshots/welcome.png)
+![Welcome Screen](./screenshots/welcome.png.png)
 
 ### Translation Interface
-![Translation Interface](./screenshots/translator.png)
+![Translation Interface](./screenshots/translator.png.png)
 
 </div>
 
