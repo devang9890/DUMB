@@ -11,7 +11,7 @@ const app = express();
 const rawAllowed =
   process.env.ALLOWED_ORIGINS ||
   process.env.CLIENT_URL ||
-  "http://localhost:5173,http://localhost:3000,https://dumbass-umber.vercel.app/";
+  "http://localhost:5173,http://localhost:3000,https://dumbass-umber.vercel.app/,https://dumb-bn8p.vercel.app";
 
 const allowedOrigins = rawAllowed
   .split(",")
