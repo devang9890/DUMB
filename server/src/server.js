@@ -11,7 +11,7 @@ const app = express();
 const rawAllowed =
   process.env.ALLOWED_ORIGINS ||
   process.env.CLIENT_URL ||
-  "http://localhost:5173,http://localhost:3000,https://dumbass-umber.vercel.app/,https://dumb-bn8p.vercel.app";
+  "http://localhost:5173,http://localhost:5174,http://localhost:3000,https://dumbass-umber.vercel.app/,https://dumb-bn8p.vercel.app";
 
 const allowedOrigins = rawAllowed
   .split(",")
@@ -24,6 +24,12 @@ app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
+
+      // Allow any localhost origin in dev (different ports)
+      if (origin.startsWith("http://localhost")) {
+        return callback(null, true);
+      }
+
       if (allowedOrigins.includes(origin)) return callback(null, true);
       return callback(new Error("Not allowed by CORS"));
     },
