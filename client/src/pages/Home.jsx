@@ -49,7 +49,7 @@ export default function Home() {
       toast.success("Translated ✅");
     } catch (err) {
       console.error(err);
-      toast.error(err?.response?.data?.message || "Translation failed ❌");
+      toast.error(err?.message || err?.response?.data?.message || "Translation failed ❌");
     } finally {
       setLoading(false);
     }
