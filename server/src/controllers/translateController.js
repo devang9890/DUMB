@@ -26,9 +26,14 @@ export const translateText = async (req, res) => {
   } catch (error) {
     console.log("TRANSLATE ERROR ❌", error?.response?.data || error.message);
 
-    return res.status(500).json({
+    const statusCode = error?.response?.status || 500;
+    const geminiMessage =
+      error?.response?.data?.error?.message || error?.response?.data?.message;
+    const message = geminiMessage || error.message || "Translation failed";
+
+    return res.status(statusCode).json({
       success: false,
-      message: error.message,
+      message,
       fullError: error?.response?.data || "No extra error info"
     });
   }
