@@ -141,6 +141,7 @@ MONGO_URI=mongodb://localhost:27017/translator
 
 GEMINI_API_KEY=your_gemini_api_key_here
 NODE_ENV=development
+ALLOWED_ORIGINS=http://localhost:5173
 ```
 
 3. **Setup Frontend**
@@ -153,7 +154,7 @@ npm install
 Create a `.env` file in the `client` directory:
 
 ```env
-VITE_API_URL=http://localhost:5000
+VITE_BACKEND_URL=http://localhost:5000
 ```
 
 ### Running the Application
@@ -299,7 +300,7 @@ Click the "History" button (bottom-right pink button) to view all your past tran
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `VITE_API_URL` | Backend API URL | Yes |
+| `VITE_BACKEND_URL` | Backend API URL | Yes |
 
 ## 🐛 Troubleshooting
 
@@ -325,7 +326,7 @@ Solution:
 ```
 Solution:
 - Ensure backend server is running
-- Check VITE_API_URL matches your backend URL
+- Check VITE_BACKEND_URL matches your backend URL
 - Verify CORS is properly configured in server
 ```
 

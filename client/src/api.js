@@ -5,7 +5,7 @@ const isLocalhost = typeof window !== "undefined" && window.location.hostname ==
 
 const baseURL = isLocalhost
   ? "http://localhost:5000"
-  : import.meta.env.VITE_BACKEND_URL || "https://dumb-2.onrender.com";
+  : import.meta.env.VITE_BACKEND_URL || window.location.origin;
 
 export const API = axios.create({
   baseURL,

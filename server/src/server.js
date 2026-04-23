@@ -8,25 +8,25 @@ dotenv.config();
 
 const app = express();
 
-const rawAllowed =
-  process.env.ALLOWED_ORIGINS ||
-  process.env.CLIENT_URL ||
-  "http://localhost:5173,http://localhost:5174,http://localhost:3000,https://dumbass-umber.vercel.app/,https://dumb-bn8p.vercel.app";
+const isProduction = process.env.NODE_ENV === "production";
+const rawAllowed = process.env.ALLOWED_ORIGINS || process.env.CLIENT_URL || "";
 
 const allowedOrigins = rawAllowed
   .split(",")
-  .map(s => s.trim().replace(/\/$/, ""))
+  .map((s) => s.trim().replace(/\/$/, ""))
   .filter(Boolean);
 
-console.log("Allowed CORS origins:", allowedOrigins);
+if (allowedOrigins.length === 0) {
+  console.warn("No ALLOWED_ORIGINS/CLIENT_URL configured.");
+}
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
 
-      // Allow any localhost origin in dev (different ports)
-      if (origin.startsWith("http://localhost")) {
+      // Only allow wildcard localhost during non-production development.
+      if (!isProduction && origin.startsWith("http://localhost")) {
         return callback(null, true);
       }
 
