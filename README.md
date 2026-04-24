@@ -141,7 +141,7 @@ MONGO_URI=mongodb://localhost:27017/translator
 
 GEMINI_API_KEY=your_gemini_api_key_here
 NODE_ENV=development
-ALLOWED_ORIGINS=http://localhost:5173
+ALLOWED_ORIGINS=http://localhost:5173,https://dumb-self.vercel.app
 ```
 
 3. **Setup Frontend**
