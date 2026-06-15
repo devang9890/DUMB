@@ -18,7 +18,7 @@ services:
       - key: MONGO_URI
         # value should be set in Render dashboard as a secret
       - key: ALLOWED_ORIGINS
-        value: https://dumb-self.vercel.app
+        value: https://dumb-three.vercel.app
       - key: GEMINI_API_KEY
       - key: NODE_ENV
         value: production
